@@ -126,5 +126,19 @@ namespace SocialNetwork.BLL.Services
             return friendRepository.FindAllByUserId(userId)
                     .Select(friendsEntity => FindById(friendsEntity.friend_id));
         }
+        public void AddFriend(UserAddFriendData userAddFriendData)
+        {
+            var findUserEntity = userRepository.FindByEmail(userAddFriendData.FriendEmail);
+            if (findUserEntity is null) throw new UserNotFoundException();
+
+            var friendEntity = new FriendEntity()
+            {
+                user_id = userAddFriendData.UserId,
+                friend_id = findUserEntity.id
+            };
+
+            if (this.friendRepository.Create(friendEntity) == 0)
+                throw new Exception();
+        }
     }
 }
