@@ -13,10 +13,12 @@ namespace SocialNetwork.BLL.Services
     {
         MessageService messageService;
         IUserRepository userRepository;
+        IFriendRepository friendRepository;
         public UserService()
         {
             userRepository = new UserRepository();
             messageService = new MessageService();
+            friendRepository = new FriendRepository();
         }
 
         public void Register(UserRegistrationData userRegistrationData)
@@ -105,6 +107,7 @@ namespace SocialNetwork.BLL.Services
             var incomingMessages = messageService.GetIncomingMessagesByUserId(userEntity.id);
 
             var outgoingMessages = messageService.GetOutcomingMessagesByUserId(userEntity.id);
+            var friends = GetFriendsByUserId(userEntity.id);
 
             return new User(userEntity.id,
                           userEntity.firstname,
@@ -115,8 +118,13 @@ namespace SocialNetwork.BLL.Services
                           userEntity.favorite_movie,
                           userEntity.favorite_book,
                           incomingMessages,
-                          outgoingMessages
+                          outgoingMessages,friends
                           );
+        }
+        public IEnumerable<User> GetFriendsByUserId(int userId)
+        {
+            return friendRepository.FindAllByUserId(userId)
+                    .Select(friendsEntity => FindById(friendsEntity.friend_id));
         }
     }
 }
