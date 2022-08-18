@@ -1,9 +1,8 @@
 ﻿using NUnit.Framework;
+using SocialNetwork.BLL.Models;
+using SocialNetwork.BLL.Services;
+using SocialNetwork.PLL.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UserTests.Tests
 {
@@ -13,7 +12,20 @@ namespace UserTests.Tests
         [Test]
         public void Test1()
         {
-            Assert.True(100 == 100);
+            /*
+           MainView mainView = new MainView();
+           UserService userService;
+           var userRegistrationData = new UserRegistrationData();
+           userRegistrationData.FirstName = "Nikita";
+           userRegistrationData.LastName = "Bochkovskiy";
+           userRegistrationData.Password = "123321123";
+           userRegistrationData.Email = "email@gmail.com";
+           mainView.Show();
+           Assert.That(userService.Register(userRegistrationData),Is.EqualTo());
+            */
+
+
+            //если честно не придумал как правильно сделать тест 
         }
     }
 }
